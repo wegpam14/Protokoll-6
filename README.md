@@ -88,13 +88,21 @@ Somit würde die Response wie folgt aussehen:
 ```   
   
 ## Der ADC
-Zum Messen von Spannungen werden sogenannte ADC's(Analog Digital Converter) verwendet. Im falle des Atmega328P Mikroprozessor wird die Methode der successiven approximation (schrittweise Annäherung) verwendet. Die Auflößung dieses ADC's ist 10Bit wobei die letzten 2 Bits nicht brauchbar sind da diese durch Rauschen (elektromagnetische Einflüsse aus der Umwelt) stark verfälscht werden.  
+Zum Messen von Spannungen werden sogenannte ADC's(Analog Digital Converter) verwendet. Im falle des Atmega328P Mikroprozessor wird die Methode der successiven approximation (schrittweise Annäherung) verwendet. Die Auflößung dieses ADC's ist 10Bit wobei die letzten 2 Bits nicht brauchbar sind da diese durch Rauschen (elektromagnetische Einflüsse aus der Umwelt) stark verfälscht werden. Die Frequenz mit der der ADC betrieben wird sollte zwischen 50kHz und 200kHz liegen.  
 Zum messen wird immer eine Referenzspannung benötigt. Hierbei ist zu beachten dass die zu messende größe nicht größer als die Referenzspannung sein darf.  
-Mögliche Referenzspannungen: * **Bandgapspannung (Interne Referenz, sehr genau)**  
-                             * **Versorgungsspannung**  
-                             * **Externe Referenzspannung an einem Pin**  
+Mögliche Referenzspannungen: 
+* **Bandgapspannung (Interne Referenz, sehr genau)**  
+* **Versorgungsspannung**  
+* **Externe Referenzspannung an einem Pin**  
 
-Der ADC-Wert wird in zwei 8-Bit Register Gespeichert
+Der ADC-Wert wird in zwei 8-Bit Register Gespeichert. Das erste Register heißt ADCH für high und das zweite heißt ADCL für low.  
+Das Ergebniss kann nach links und nach rechts geschoben werden. In unserem Fall ist es sinnvoll den Wert nach links zu schieben da man die Letzten beiden Bits onehin ungenau sind und somit vernachlessigt werden können. Somit genügt es wenn nur der ADCH-Wert ausgelesen wird.  
+  
+## Auswertung des ADC Werts  
+  
+Um nun einen Brauchbaren Temperaturwert zu bekommen gibt es eine Formel welche wie folgt Lautet: **ADC=(V_in*1024)/(V_ref)**  
+ADC ist in diesem Fall der ADC wert aus dem ADCH Register, 1024 ist die Auflößung des ADC's und V_ref ist die Referenzspannug. In unserem Fall die 1,1V Bandgapspannung des Mikrocontrollers.
+Somit kommen wir bei einer Temperatur von 25°C auf einen ADC Wert von 73hex.
 
 
 
