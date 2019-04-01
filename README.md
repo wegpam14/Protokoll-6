@@ -97,6 +97,8 @@ Mögliche Referenzspannungen:
 * **Versorgungsspannung**  
 * **Externe Referenzspannung an einem Pin**  
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/61/SA_ADC_block_diagram.png" alt="">  
+
 Der ADC-Wert wird in zwei 8-Bit Register Gespeichert. Das erste Register heißt ADCH für high und das zweite heißt ADCL für low.  
 Das Ergebniss kann nach links und nach rechts geschoben werden. In unserem Fall ist es sinnvoll den Wert nach links zu schieben da man die Letzten beiden Bits onehin ungenau sind und somit vernachlessigt werden können. Somit genügt es wenn nur der ADCH-Wert ausgelesen wird.  
   
@@ -106,7 +108,6 @@ Um nun einen Brauchbaren Temperaturwert zu bekommen gibt es eine Formel welche w
 **ADC=(V_in*1024)/(V_ref)**  
 **ADC** ist in diesem Fall der ADC wert aus dem ADCH Register, **1024** ist die Auflößung des ADC's und **V_ref** ist die Referenzspannug. In unserem Fall die 1,1V Bandgapspannung des Mikrocontrollers.
 Somit kommen wir bei einer Temperatur von 25°C auf einen ADC Wert von 73hex.
-
 
 
 
