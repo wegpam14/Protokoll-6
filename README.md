@@ -39,5 +39,64 @@ Das Modbus Daten-Modell unterscheidet vier Tabellen (Adressräume) für:
 ### Modbus-TCP  
 Hiermit wäre es möglich einen kabellosen Temperatursensor über W-LAN ein zurichten. Hierfür würde die Möglichkeit bestehen einen kleinen Einplatienencomputer wie zum Beispiel den Raspberry Pi Zero als Modbus Gateway zu verwenden. Zusätzlich könnte man zum Auswerten eine Android App schreiben und die Messwerte Grafisch ausgeben lassen.  
 ### Modbus-ASCII  
-Die zweite Lösung wäre, einen Kabelgebundenen Temperatur Sensor einzurichten welcher mit dem Modbus-ASCII Protokoll arbeitet. Hierfür könnte man einen UART zu RS485 Umsetzer nach dem Arduino Nano setzen und dies dann dierekt an eine SPS anschließen. In diesem Fall wäre der Arduino der Client und die SPS der Server.  
-Dieese Lösung wird auch in einer etwas abgeänderten Form in unserer Laboreinheit verwendet. Hierfür werden die UART Signale nicht auf RS485 übersetzt sondern mit dem UART auf USB converter umgesetzt um die Messdaten direkt am PC im Therminal ausgeben zu lassen.
+Die zweite Lösung wäre, einen Kabelgebundenen Temperatur Sensor einzurichten welcher mit dem Modbus-ASCII Protokoll arbeitet. Hierfür könnte man einen UART zu RS485 Umsetzer nach dem Arduino Nano setzen und diesen dann dierekt an eine SPS anschließen. In diesem Fall wäre der Arduino der Client und die SPS der Server.  
+Diese Lösung wird auch in einer etwas abgeänderten Form in unserer Laboreinheit verwendet. Hierfür werden die UART Signale nicht auf RS485 übersetzt sondern mit dem UART auf USB converter umgesetzt um die Messdaten direkt am PC im Therminal ausgeben zu lassen.  4
+  
+## Datenanfrage (Request)  
+Dieses nachfolgende Datenframe wurde im Unterricht verwendet um die Request zum Auslesen des Sensors zu senden. 
+```
+:010400000001 _ _ <CR><LF>
+```  
+
+**Beschreibung des Modbus ASCII Frame's**  
+  
+:|01|04|0000|0001|_ _|<CR><LF>
+  
+```:``` -> Start Frame  
+```01``` -> Adresse des Geräts am Bus  
+```04``` -> Read Input Register  
+```0000``` -> Inputregister 1 für die Temperatur  
+```0001``` -> Anzahl der Gewählten Input Register  
+```_ _``` -> LRC/Prüfsumme  
+```<CR><LF>``` -> End-Frame   
+  
+## Antwort (Response)  
+Dieses nachfolgende Datenframe wurde im Unterricht verwendet um die Response vom Microcontroller zum PC zu senden
+```
+:010402xxxx _ _ <CR><LF>
+```  
+
+**Beschreibung des Modbus ASCII Frame's**  
+  
+:|01|04|02|xxxx|_ _|<CR><LF>
+  
+```:``` -> Start Frame  
+```01``` -> Adresse des Geräts am Bus  
+```04``` -> Read Input Register  
+```02``` -> Anzahl der Bytes  
+```xxxx``` -> Temperaturwert  
+```_ _``` -> LRC/Prüfsumme  
+```<CR><LF>``` -> End-Frame  
+  
+## Übertragung von den Temperaturwerten  
+Die Temperaturwerte werden als 16Bit Werte übertragen. Weiters werden die werte in Festkommacodierung übertragen somit sind links und rechts vom Komma 8 Bit.
+Um nun vom Temperaturwert z.B 23,5°C zum hex Wert zu kommen muss man den wert zuerst mit 256 Multiplizieren und danach in eine Hexadezimalzahl umwandeln -> 23,5 * 256 = 6016 => 1780hex  
+Somit würde die Response wie folgt aussehen:
+
+```
+:0104021780 _ _ <CR><LF>
+```   
+  
+## Der ADC
+Zum Messen von Spannungen werden sogenannte ADC's(Analog Digital Converter) verwendet. Im falle des Atmega328P Mikroprozessor wird die Methode der successiven approximation (schrittweise Annäherung) verwendet. Die Auflößung dieses ADC's ist 10Bit wobei die letzten 2 Bits nicht brauchbar sind da diese durch Rauschen (elektromagnetische Einflüsse aus der Umwelt) stark verfälscht werden.  
+Zum messen wird immer eine Referenzspannung benötigt. Hierbei ist zu beachten dass die zu messende größe nicht größer als die Referenzspannung sein darf.  
+Mögliche Referenzspannungen: - Bandgapspannung (Interne Referenz, sehr genau)  
+                             - Versorgungsspannung
+                             - Externe Referenzspannung an einem Pin
+
+
+
+
+
+
+
