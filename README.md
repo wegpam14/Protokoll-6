@@ -38,7 +38,7 @@ Das Modbus Daten-Modell unterscheidet vier Tabellen (Adressräume) für:
 ## Lösungsansätze  
 ### Modbus-TCP  
 Hiermit wäre es möglich einen kabellosen Temperatursensor über W-LAN ein zurichten. Hierfür würde die Möglichkeit bestehen einen kleinen Einplatienencomputer wie zum Beispiel den Raspberry Pi Zero als Modbus Gateway zu verwenden. Zusätzlich könnte man zum Auswerten eine Android App schreiben und die Messwerte Grafisch ausgeben lassen. 
-<img src="" alt="">  
+<img src="https://user-images.githubusercontent.com/43165765/55355726-6b7ca000-54c9-11e9-93ee-ee4105a7c79a.png" alt="">  
 ### Modbus-ASCII  
 Die zweite Lösung wäre, einen Kabelgebundenen Temperatur Sensor einzurichten welcher mit dem Modbus-ASCII Protokoll arbeitet. Hierfür könnte man einen UART zu RS485 Umsetzer nach dem Arduino Nano setzen und diesen dann dierekt an eine SPS anschließen. In diesem Fall wäre der Arduino der Client und die SPS der Server.  
 Diese Lösung wird auch in einer etwas abgeänderten Form in unserer Laboreinheit verwendet. Hierfür werden die UART Signale nicht auf RS485 übersetzt sondern mit dem UART auf USB converter umgesetzt um die Messdaten direkt am PC im Therminal ausgeben zu lassen.  
