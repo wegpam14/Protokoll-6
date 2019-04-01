@@ -90,9 +90,11 @@ Somit würde die Response wie folgt aussehen:
 ## Der ADC
 Zum Messen von Spannungen werden sogenannte ADC's(Analog Digital Converter) verwendet. Im falle des Atmega328P Mikroprozessor wird die Methode der successiven approximation (schrittweise Annäherung) verwendet. Die Auflößung dieses ADC's ist 10Bit wobei die letzten 2 Bits nicht brauchbar sind da diese durch Rauschen (elektromagnetische Einflüsse aus der Umwelt) stark verfälscht werden.  
 Zum messen wird immer eine Referenzspannung benötigt. Hierbei ist zu beachten dass die zu messende größe nicht größer als die Referenzspannung sein darf.  
-Mögliche Referenzspannungen: - Bandgapspannung (Interne Referenz, sehr genau)  
-                             - Versorgungsspannung
-                             - Externe Referenzspannung an einem Pin
+Mögliche Referenzspannungen: * **Bandgapspannung (Interne Referenz, sehr genau)**  
+                             * **Versorgungsspannung**  
+                             * **Externe Referenzspannung an einem Pin**  
+
+Der ADC-Wert wird in zwei 8-Bit Register Gespeichert
 
 
 
