@@ -100,8 +100,9 @@ Das Ergebniss kann nach links und nach rechts geschoben werden. In unserem Fall 
   
 ## Auswertung des ADC Werts  
   
-Um nun einen Brauchbaren Temperaturwert zu bekommen gibt es eine Formel welche wie folgt Lautet: **ADC=(V_in*1024)/(V_ref)**  
-ADC ist in diesem Fall der ADC wert aus dem ADCH Register, 1024 ist die Auflößung des ADC's und V_ref ist die Referenzspannug. In unserem Fall die 1,1V Bandgapspannung des Mikrocontrollers.
+Um nun einen Brauchbaren Temperaturwert zu bekommen gibt es eine Formel welche wie folgt Lautet:   
+**ADC=(V_in*1024)/(V_ref)**  
+**ADC** ist in diesem Fall der ADC wert aus dem ADCH Register, **1024** ist die Auflößung des ADC's und **V_ref** ist die Referenzspannug. In unserem Fall die 1,1V Bandgapspannung des Mikrocontrollers.
 Somit kommen wir bei einer Temperatur von 25°C auf einen ADC Wert von 73hex.
 
 
