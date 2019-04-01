@@ -41,7 +41,7 @@ Hiermit wäre es möglich einen kabellosen Temperatursensor über W-LAN ein zuri
 ### Modbus-ASCII  
 Die zweite Lösung wäre, einen Kabelgebundenen Temperatur Sensor einzurichten welcher mit dem Modbus-ASCII Protokoll arbeitet. Hierfür könnte man einen UART zu RS485 Umsetzer nach dem Arduino Nano setzen und diesen dann dierekt an eine SPS anschließen. In diesem Fall wäre der Arduino der Client und die SPS der Server.  
 Diese Lösung wird auch in einer etwas abgeänderten Form in unserer Laboreinheit verwendet. Hierfür werden die UART Signale nicht auf RS485 übersetzt sondern mit dem UART auf USB converter umgesetzt um die Messdaten direkt am PC im Therminal ausgeben zu lassen.  
-<img src="https://raw.githubusercontent.com/winthm14/Protokoll-5/master/USB%3AUART.tif" alt="">  
+<img src="https://user-images.githubusercontent.com/43165765/55355146-cd3c0a80-54c7-11e9-881b-f95c7439baf9.png" alt="">  
   
 ## Datenanfrage (Request)  
 Dieses nachfolgende Datenframe wurde im Unterricht verwendet um die Request zum Auslesen des Sensors zu senden. 
